@@ -3,7 +3,7 @@
 import Card from '@mui/material/Card';
 import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { IndivPart } from './indivPart';
+import { CheckBox } from './CheckBox';
 
 export const RightSidebar = () => {
   const [title, settitle] = useState('');
@@ -59,7 +59,7 @@ export const RightSidebar = () => {
           <div className="flex items-center justify-center">
             <p className="p-10">No form fields added yet. Use the panel on the left to add form elemets</p>
           </div>
-          {/* <IndivPart/> */}
+          <CheckBox/>
         </Card>
       </div>
   );

@@ -6,7 +6,7 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export const IndivPart = () => {
+export const Text = () => {
   return (
     <div className="flex items-center justify-center">
     <Card className="p-10 w-full bg-gray-100">
