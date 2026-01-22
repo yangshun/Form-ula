@@ -14,6 +14,7 @@ type FormElement = TextForm | ParagraphForm | CheckboxForm | SelectForm;
 type Props = {
   formElements: FormElement[];
   removIt: (id: string) => void;
+  isPreview: boolean;
 };
 
 export const RightSidebar = ({ formElements ,removIt }: Props) => {

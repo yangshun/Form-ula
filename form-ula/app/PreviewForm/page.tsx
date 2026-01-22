@@ -24,7 +24,7 @@ const PreviewFormPage = () => {
         <NavBar />
         {/* Body */}
         <div className="flex-grow flex items-center justify-center">
-          <RightSidebar formElements={formElements} removIt={() => {}}/>
+          <RightSidebar formElements={formElements} removIt={() => {}} isPreview={true}/>
         </div>
       </main>
     )

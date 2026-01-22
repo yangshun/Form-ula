@@ -10,19 +10,22 @@ import { useEffect, useState } from "react";
 type FormElement = TextForm | ParagraphForm | CheckboxForm | SelectForm;
 
 const Home = () => {
+  const [visit, hasvisted] = useState(false);
   const [formElements, setFormElements] = useState<FormElement[]>([]);
   const deletion = (id: string) => {
     setFormElements(formElements.filter((element) => element.id !== id));
-  } 
+  };
   useEffect(() => { 
     const save = localStorage.getItem('formElements');
     if (save) {
       setFormElements(JSON.parse(save));
     }
+    hasvisted(true);
   }
 , []);
 
   useEffect(() => {
+    if (!visit) return;
     localStorage.setItem('formElements', JSON.stringify(formElements));
   } , [formElements]);
 
@@ -76,7 +79,7 @@ const Home = () => {
         {/* Left Sidebar */}
         <LeftSidebar addText={addText} addParagraph={addParagraph} addCheckBox={addCheckBox} addSelect={addSelect}/>
         {/* Right Sidebar */}
-        <RightSidebar formElements={formElements} removIt={deletion} />
+        <RightSidebar formElements={formElements} removIt={deletion} isPreview={false}/>
       </div>
     </main>
   );
