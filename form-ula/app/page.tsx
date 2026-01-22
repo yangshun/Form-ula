@@ -11,7 +11,9 @@ type FormElement = TextForm | ParagraphForm | CheckboxForm | SelectForm;
 
 const Home = () => {
   const [formElements, setFormElements] = useState<FormElement[]>([]);
-
+  const deletion = (id: string) => {
+    setFormElements(formElements.filter((element) => element.id !== id));
+  } 
   useEffect(() => { 
     const save = localStorage.getItem('formElements');
     if (save) {
@@ -74,7 +76,7 @@ const Home = () => {
         {/* Left Sidebar */}
         <LeftSidebar addText={addText} addParagraph={addParagraph} addCheckBox={addCheckBox} addSelect={addSelect}/>
         {/* Right Sidebar */}
-        <RightSidebar formElements={formElements} />
+        <RightSidebar formElements={formElements} removIt={deletion} />
       </div>
     </main>
   );

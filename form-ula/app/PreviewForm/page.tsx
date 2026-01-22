@@ -9,6 +9,7 @@ type FormElement = TextForm | ParagraphForm | CheckboxForm | SelectForm;
 
 const PreviewFormPage = () => { 
   const [formElements, setFormElements] = useState<FormElement[]>([]);
+  
   useEffect(() => {
     const savedFormElements = localStorage.getItem('formElements');
     if (savedFormElements) {
@@ -23,7 +24,7 @@ const PreviewFormPage = () => {
         <NavBar />
         {/* Body */}
         <div className="flex-grow flex items-center justify-center">
-          <RightSidebar formElements={formElements} />
+          <RightSidebar formElements={formElements} removIt={() => {}}/>
         </div>
       </main>
     )

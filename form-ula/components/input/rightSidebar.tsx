@@ -13,9 +13,10 @@ type FormElement = TextForm | ParagraphForm | CheckboxForm | SelectForm;
 
 type Props = {
   formElements: FormElement[];
+  removIt: (id: string) => void;
 };
 
-export const RightSidebar = ({ formElements }: Props) => {
+export const RightSidebar = ({ formElements ,removIt }: Props) => {
   const [title, settitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -74,13 +75,13 @@ export const RightSidebar = ({ formElements }: Props) => {
                 {formElements.map((element) => {
                   switch (element.type) {
                     case "text":
-                      return <Text key={element.id} element={element} />;
+                      return <Text key={element.id} element={element} removIt={removIt} />;
                     case "paragraph":
-                      return <Paragraph key={element.id} element={element} />;
+                      return <Paragraph key={element.id} element={element} removIt={removIt}/>;
                     case "checkbox":
-                      return <CheckBoxInput key={element.id} element={element} />;
+                      return <CheckBoxInput key={element.id} element={element} removIt={removIt}/>;
                     case "select":
-                      return <Select key={element.id} element={element} />;
+                      return <Select key={element.id} element={element} removIt={removIt}/>;
                     default:
                       return null;
                     }

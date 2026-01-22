@@ -9,9 +9,10 @@ import { SelectForm } from "@/types/user";
 
 type Props = {
   element: SelectForm;
+  removIt: (id: string) => void;
 };
 
-export const Select = ({ element }: Props) => {
+export const Select = ({ element, removIt }: Props) => {
   return (
     <div className="flex items-center justify-center">
     <Card className="p-10 w-full bg-gray-100">
@@ -29,7 +30,7 @@ export const Select = ({ element }: Props) => {
         <FormGroup>
           <FormControlLabel control={<Checkbox defaultChecked />} label="required" />
         </FormGroup>
-        <IconButton aria-label="delete">
+        <IconButton aria-label="delete" onClick={() => removIt(element.id)}>
           <DeleteIcon />
         </IconButton>
       </div>
