@@ -1,4 +1,4 @@
-const Users = {
-    title: "",
-    description: "",
+export type Users = {
+    title: String;
+    description: String;
   };
