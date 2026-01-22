@@ -41,7 +41,7 @@ const Home = () => {
       </div>
       {/* Body */}
       <div
-        className="grid md:grid-cols-[30%_70%] flex">
+        className="grid md:grid-cols-[30%_70%]">
         {/* Left Sidebar */}
         <div className="p-8">
           <Card className="p-6">
@@ -49,25 +49,25 @@ const Home = () => {
             <h2 className="text-2xl font-bold mb-4">Add Form Elements</h2>
             {/* Card Buttons */}
             <Grid container rowSpacing={1} columnSpacing={2}>
-              <Grid size={6}>
+              <Grid item xs={12} sm={6}>
                 <Button variant="outlined" className="p-4" startIcon={<TextIcon/>} 
                   sx={{ color: 'black', borderColor: 'black', height: 60 ,width: 150 }}>
                   <h1>Text</h1>
                 </Button>
               </Grid>
-              <Grid size={6}>
+              <Grid item xs={12} sm={6}>
                 <Button variant="outlined" className="p-4" startIcon={<ParagraphIcon/>}  
                   sx={{ color: 'black', borderColor: 'black', height: 60 ,width: 150 }}>
                   <h1>Paragraph</h1>
                 </Button>
               </Grid>
-              <Grid size={6}>
+              <Grid item xs={12} sm={6}>
                 <Button variant="outlined"className="p-4" startIcon={<CheckBoxIcon/>} 
                   sx={{ color: 'black', borderColor: 'black', height: 60 ,width: 150 }}>
                   <h1>Checkbox</h1>
                 </Button>
               </Grid>
-              <Grid size={6}>
+              <Grid item xs={12} sm={6}>
                 <Button variant="outlined" className="p-4" startIcon={<SelectIcon/>}  
                   sx={{ color: 'black', borderColor: 'black', height: 60 ,width: 150 }}>
                   <h1>Select</h1>
@@ -77,9 +77,18 @@ const Home = () => {
           </Card>
         </div>
         {/* Right Sidebar */}
-        <div className="p-8 mt-8">
-            <h2 className="text-2xl font-bold mb-4">Form Title</h2>
-            <p>Form Description.</p>
+        <div className="p-8">
+          <Card>
+            {/* Header */}
+            <div className="p-8 items-center bg-purple-100">
+              <h2 className="text-2xl font-bold">Form Title</h2>
+              <p>Form Description.</p>
+            </div>
+            {/* Body */}
+            <div className="h-64 flex items-center justify-center">
+              <p className="text-gray-500">No form fields added yet. Use the panel on the left to add form elemets</p>
+            </div>
+          </Card>
         </div>
       </div>
     </main>
