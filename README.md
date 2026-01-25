@@ -6,7 +6,7 @@ Take Home Assignment
 ### Overview
 This project is a lightweight **Form Builder** built with **Next.js**, **React** , **TypeScript**, **TailwindCSS**, and **MUI**. It supports a simple 3-step flow:
 
-1. **Builder (`/`)**: add and edit form elements (Text / Paragraph / Checkbox / Select).
+1. **HomePage (`/`)**: add and edit form elements (Text / Paragraph / Checkbox / Select).
 2. **Preview (`/PreviewForm`)**: view the form in “fill mode” and submit.
 3. **Submission (`/Submission`)**: show a success page and display what was submitted.
 
@@ -15,7 +15,7 @@ The core idea is that the UI is driven by a **form schema** (an array of element
 ---
 
 ### Routing & Page Responsibilities (Next.js `app/`)
-- `app/page.tsx` (**Home / Builder**)
+- `app/page.tsx` (**HomePage / Builder**)
   - Owns the schema state `formElements`
   - Provides handlers to add / update / delete elements
   - Persists schema to `localStorage` for autosave
@@ -56,7 +56,7 @@ State is managed using `useState` and persisted using `localStorage`:
 
 - `formElements` (schema)
   - Loaded on initial mount
-  - Saved whenever elements change (autosave behavior)
+  - Saved whenever elements change (local save)
 
 - `formTitle` / `formDescription`
   - Stored in `localStorage` from the RightSidebar header fields
@@ -79,7 +79,7 @@ This design scales well: adding a new field type usually means:
 
 ---
 
-### Builder vs Preview Mode
+### Builder(Home Page) vs Preview Mode
 Each field component supports two modes via an `isPreview` flag:
 
 - **Builder mode (`isPreview=false`)**
