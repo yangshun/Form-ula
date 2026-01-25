@@ -7,7 +7,7 @@ import { useRouter, usePathname } from 'next/navigation';
 
 export const NavBar = () => {
     const router = useRouter(); 
-    const isPreview = (usePathname() === "/PreviewForm");
+    const isPreview = (usePathname() === "/PreviewForm" || usePathname() === "/Submission");
     return (
       <div className="flex boder-b shadow-md border-gray-200">
         <div className="max-w-6xl w-full mx-auto flex items-center justify-between py-4 px-8">

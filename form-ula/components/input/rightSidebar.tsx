@@ -1,13 +1,15 @@
 "use client"
 
 import Card from '@mui/material/Card';
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { TextForm, ParagraphForm, CheckboxForm, SelectForm } from "@/types/user";
 import { CheckBoxInput } from "./CheckBoxInput";
 import { Select } from "./Select";
 import { Text } from "./Text";
 import { Paragraph } from "./Paragraph";
+import SendIcon from '@mui/icons-material/Send';
+import { useRouter } from "next/navigation";
 
 type FormElement = TextForm | ParagraphForm | CheckboxForm | SelectForm;
 
@@ -21,6 +23,7 @@ type Props = {
 };
 
 export const RightSidebar = ({ formElements ,removIt, isPreview, header, content, isRequired}: Props) => {
+  const router = useRouter(); 
   const [title, settitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -75,7 +78,7 @@ export const RightSidebar = ({ formElements ,removIt, isPreview, header, content
             <div className="p-8 text-center text-gray-500">
               <p>No form elements added yet. Use the left sidebar to add elements.</p>
             </div>) : (
-              <div className="p-8">
+              <div className="p-8 flex flex-col gap-6">
                 {formElements.map((element) => {
                   switch (element.type) {
                     case "text":
@@ -90,8 +93,15 @@ export const RightSidebar = ({ formElements ,removIt, isPreview, header, content
                       return null;
                     }
                 }
-                )}                  
-                </div>
+                )}       
+
+                {isPreview &&( 
+                <Button variant="contained" className="mt-12" startIcon={<SendIcon/>}  color="secondary" fullWidth onClick={() => router.push('/Submission') }
+                  sx={{ color: 'white', height: 50}}>
+                  <h1>Submit</h1>
+                </Button> 
+                )}          
+            </div>
               )}
             </Card>
           </div>
