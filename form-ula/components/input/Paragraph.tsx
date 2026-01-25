@@ -15,14 +15,17 @@ type Props = {
   content: (id: string, value: string) => void;
   isRequired: (id: string, value: boolean) => void;
   isPreview: boolean;
+  responses: Record<string, string>;
+  setResponse: (id: string, value: string) => void;
 };
 
-export const Paragraph = ({ element, removIt, header, content, isPreview, isRequired }: Props) => {
+export const Paragraph = ({ element, removIt, header, content, isPreview, isRequired, responses, setResponse}: Props) => {
   const headerText = element.header + (element.required ? " *" : "");
   const [click , setClick] =  useState(false);
   const value = element.placeholder ?? "";
   const showError =
     isPreview && element.required && click && value.trim() === "";
+
   return (
     <div className="flex items-center justify-center">
     <Card className="p-10 w-full bg-gray-100">
@@ -65,7 +68,7 @@ export const Paragraph = ({ element, removIt, header, content, isPreview, isRequ
           color="secondary"
           error={showError}
           helperText={showError ? "This field is required" : " "}
-          onChange={(e) => { if (isPreview) setClick(true);
+          onChange={(e) => { if  (isPreview) {setClick(true); setResponse(element.id, e.target.value);}
             content(element.id, e.target.value);
           }}
           disabled={false} 

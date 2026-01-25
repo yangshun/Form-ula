@@ -12,6 +12,7 @@ type FormElement = TextForm | ParagraphForm | CheckboxForm | SelectForm;
 const Home = () => {
   const [visit, hasvisted] = useState(false);
   const [formElements, setFormElements] = useState<FormElement[]>([]);
+  const [responses, setResponses] = useState<Record<string, any>>({});
   const deletion = (id: string) => {
     setFormElements(formElements.filter((element) => element.id !== id));
   };
@@ -33,6 +34,13 @@ const Home = () => {
     setFormElements(formElements.map((element) => {
       if (element.id === id) {
         return { ...element, required: value };
+      }
+      return element;
+    }))};
+  const response = (id: string, value:any) => {
+    setResponses(formElements.map((element) => {
+      if (element.id === id) {
+        return { ...element, placeholder: value };
       }
       return element;
     }))};
@@ -104,7 +112,7 @@ const Home = () => {
         {/* Left Sidebar */}
         <LeftSidebar addText={addText} addParagraph={addParagraph} addCheckBox={addCheckBox} addSelect={addSelect}/>
         {/* Right Sidebar */}
-        <RightSidebar formElements={formElements} removIt={deletion} isPreview={false} header={header} content={content} isRequired={isRequired}/>
+        <RightSidebar formElements={formElements} removIt={deletion} isPreview={false} header={header} content={content} isRequired={isRequired} responses={responses} setResponse={response}/>
       </div>
     </main>
   );

@@ -13,6 +13,7 @@ type FormElement = TextForm | ParagraphForm | CheckboxForm | SelectForm;
 const PreviewFormPage = () => { 
   const router = useRouter(); 
   const [formElements, setFormElements] = useState<FormElement[]>([]);
+  const [responses, setResponses] = useState<Record<string, any>>({});
   const content = (id: string, value:string) => {
     setFormElements(formElements.map((element) => {
       if (element.id === id) {
@@ -24,6 +25,13 @@ const PreviewFormPage = () => {
     setFormElements(formElements.map((element) => {
       if (element.id === id) {
         return { ...element, required: value };
+      }
+      return element;
+    }))};
+  const response = (id: string, value:any) => {
+    setResponses(formElements.map((element) => {
+      if (element.id === id) {
+        return { ...element, placeholder: value };
       }
       return element;
     }))};
@@ -42,11 +50,11 @@ const PreviewFormPage = () => {
         {/* Body */}
         <div className="w-full flex flex-col items-center">
           <div className="w-full max-w-5xl px-8 py-6">
-            <Button variant="outlined" className="p-4" startIcon={<ArrowBackIcon/>} onClick={() => router.push('/') }
+            <Button variant="outlined" className="p-4" startIcon={<ArrowBackIcon/>} onClick={() => router.push('/') } 
               sx={{ color: 'black', borderColor: 'black', height: 50}}>
               <h1>Back to editor</h1>
             </Button>
-          <RightSidebar formElements={formElements} removIt={() => {}} isPreview={true} header ={() => {}} content={content} isRequired={isRequired} />
+          <RightSidebar formElements={formElements} removIt={() => {}} isPreview={true} header ={() => {}} content={content} isRequired={isRequired} responses={responses} setResponse={response}/>
           </div>
         </div>
       </main>
