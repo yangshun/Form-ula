@@ -6,16 +6,22 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { CheckboxForm } from "@/types/user";
+import { useState } from "react";
 
 type Props = {
   element: CheckboxForm;
   removIt: (id: string) => void;
   header: (id: string, value: string) => void;
   content: (id: string, value: string) => void;
+  isRequired: (id: string, value: boolean) => void;
   isPreview: boolean;
 };
 
-export const CheckBoxInput = ({ element, removIt, header, content, isPreview}: Props) => {
+export const CheckBoxInput = ({ element, removIt, header, content, isPreview, isRequired }: Props) => {
+  const [click , setClick] =  useState(false);
+  const value = element.placeholder ?? "";
+  const showError =
+    isPreview && element.required && click && value.trim() === "";
   return (
     <div className="flex items-center justify-center">
     <Card className="p-10 w-full bg-gray-100">
@@ -34,7 +40,8 @@ export const CheckBoxInput = ({ element, removIt, header, content, isPreview}: P
           }}
         />
         <FormGroup>
-          <FormControlLabel control={<Checkbox defaultChecked />} label="required" />
+          <FormControlLabel control={<Checkbox disabled={isPreview} onChange={(e) => isRequired(element.id, e.target.checked)} 
+          checked={element.required || false} />} label="required" />
         </FormGroup>
         <IconButton aria-label="delete" onClick={() => removIt(element.id)}>
           <DeleteIcon />
@@ -44,7 +51,11 @@ export const CheckBoxInput = ({ element, removIt, header, content, isPreview}: P
           fullWidth
           placeholder={element.header}
           value={element.placeholder}
-          onChange={(e) => content(element.id, e.target.value)}
+          error={showError}
+          helperText={showError ? "This field is required" : " "}
+          onChange={(e) => { if (isPreview) setClick(true);
+            content(element.id, e.target.value);
+          }}
           disabled={false} 
           InputProps={{
             style: { fontWeight: 'bold'},

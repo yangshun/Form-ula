@@ -17,9 +17,10 @@ type Props = {
   isPreview: boolean;
   header: (id: string, value: string) => void;
   content: (id: string, value: string) => void;
+  isRequired: (id: string, value: boolean) => void;
 };
 
-export const RightSidebar = ({ formElements ,removIt, isPreview, header, content}: Props) => {
+export const RightSidebar = ({ formElements ,removIt, isPreview, header, content, isRequired}: Props) => {
   const [title, settitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -78,13 +79,13 @@ export const RightSidebar = ({ formElements ,removIt, isPreview, header, content
                 {formElements.map((element) => {
                   switch (element.type) {
                     case "text":
-                      return <Text key={element.id} element={element} removIt={removIt} header={header} content={content} isPreview={isPreview}/>;
+                      return <Text key={element.id} element={element} removIt={removIt} header={header} content={content} isPreview={isPreview} isRequired={isRequired}/>;
                     case "paragraph":
-                      return <Paragraph key={element.id} element={element} removIt={removIt} header={header} content={content} isPreview={isPreview}/>;
+                      return <Paragraph key={element.id} element={element} removIt={removIt} header={header} content={content} isPreview={isPreview} isRequired={isRequired}/>;
                     case "checkbox":
-                      return <CheckBoxInput key={element.id} element={element} removIt={removIt} header={header} content={content} isPreview={isPreview}/>;
+                      return <CheckBoxInput key={element.id} element={element} removIt={removIt} header={header} content={content} isPreview={isPreview} isRequired={isRequired}/>;
                     case "select":
-                      return <Select key={element.id} element={element} removIt={removIt} header={header} content={content} isPreview={isPreview}/>;
+                      return <Select key={element.id} element={element} removIt={removIt} header={header} content={content} isPreview={isPreview} isRequired={isRequired}/>;
                     default:
                       return null;
                     }

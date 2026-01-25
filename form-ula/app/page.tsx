@@ -29,6 +29,13 @@ const Home = () => {
       }
       return element;
     }))};
+  const isRequired = (id: string, value:boolean) => {
+    setFormElements(formElements.map((element) => {
+      if (element.id === id) {
+        return { ...element, required: value };
+      }
+      return element;
+    }))};
   useEffect(() => { 
     const save = localStorage.getItem('formElements');
     if (save) {
@@ -97,7 +104,7 @@ const Home = () => {
         {/* Left Sidebar */}
         <LeftSidebar addText={addText} addParagraph={addParagraph} addCheckBox={addCheckBox} addSelect={addSelect}/>
         {/* Right Sidebar */}
-        <RightSidebar formElements={formElements} removIt={deletion} isPreview={false} header={header} content={content}/>
+        <RightSidebar formElements={formElements} removIt={deletion} isPreview={false} header={header} content={content} isRequired={isRequired}/>
       </div>
     </main>
   );

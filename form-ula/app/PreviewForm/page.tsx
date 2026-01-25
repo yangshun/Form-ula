@@ -16,6 +16,13 @@ const PreviewFormPage = () => {
       }
       return element;
     }))};
+  const isRequired = (id: string, value:boolean) => {
+    setFormElements(formElements.map((element) => {
+      if (element.id === id) {
+        return { ...element, required: value };
+      }
+      return element;
+    }))};
   useEffect(() => {
     const savedFormElements = localStorage.getItem('formElements');
     if (savedFormElements) {
@@ -30,7 +37,7 @@ const PreviewFormPage = () => {
         <NavBar />
         {/* Body */}
         <div className="flex-grow flex items-center justify-center">
-          <RightSidebar formElements={formElements} removIt={() => {}} isPreview={true} header ={() => {}} content={content}/>
+          <RightSidebar formElements={formElements} removIt={() => {}} isPreview={true} header ={() => {}} content={content} isRequired={isRequired} />
         </div>
       </main>
     )
