@@ -23,19 +23,19 @@ export const Text = ({ element, removIt, header, content, isPreview, isRequired,
   const headerText = fixHeader + (element.required ? " *" : "");
 
   return (
-    <div className="flex items-center justify-center">
-    <Card className="p-10 w-full bg-gray-100">
+    <div className = "flex items-center justify-center">
+    <Card className = "p-10 w-full bg-gray-100">
       {/* Header */}
-      <div className="mb-4 flex">
+      <div className = "mb-4 flex">
         {isPreview ? (
-          <span style={{ fontWeight: 700, color: "black" }}>{headerText}</span>
+          <span style = {{ fontWeight: 700, color: "black" }}>{headerText}</span>
         ) : (
           <TextField
             fullWidth
-            placeholder="New Text Field"
-            value={element.header}
-            onChange={(e) => header(element.id, e.target.value)}
-            variant="standard"
+            placeholder = "New Text Field"
+            value = {element.header}
+            onChange = {(e) => header(element.id, e.target.value)}
+            variant = "standard"
             InputProps={{
               readOnly: isPreview,
               disableUnderline: true,
@@ -45,12 +45,12 @@ export const Text = ({ element, removIt, header, content, isPreview, isRequired,
         )}
         {!isPreview &&( 
           <FormGroup>
-            <FormControlLabel control={<Checkbox disabled={isPreview} onChange={(e) => isRequired(element.id, e.target.checked)} 
-            checked={element.required || false} />} label="required" />
+            <FormControlLabel control = {<Checkbox disabled={isPreview} onChange={(e) => isRequired(element.id, e.target.checked)} 
+            checked = {element.required || false} />} label="required" />
           </FormGroup>
         )}
         {!isPreview &&( 
-          <IconButton aria-label="delete" onClick={() => removIt(element.id)}>
+          <IconButton aria-label = "delete" onClick={() => removIt(element.id)}>
             <DeleteIcon />
           </IconButton>          
         )}
@@ -58,11 +58,11 @@ export const Text = ({ element, removIt, header, content, isPreview, isRequired,
       {isPreview ? (
         <TextField
           fullWidth
-          placeholder={`Enter ${fixHeader}`}
-          color="secondary"
-          error={!!errors?.[element.id]}
-          helperText={errors?.[element.id]?.message ?? " "}
-          InputProps={{ style: { fontWeight: "bold" } }}
+          placeholder = {`Enter ${fixHeader}`}
+          color = "secondary"
+          error = {!!errors?.[element.id]}
+          helperText= {errors?.[element.id]?.message ?? " "}
+          InputProps= {{ style: { fontWeight: "bold" } }}
           {...register(element.id, {
             required: element.required ? "This field is required" : false,
           })}
@@ -70,12 +70,12 @@ export const Text = ({ element, removIt, header, content, isPreview, isRequired,
       ) : (
         <TextField
           fullWidth
-          placeholder={`Enter ${fixHeader}`}
-          value={element.placeholder}
-          color="secondary"
-          helperText=" "
-          onChange={(e) => content(element.id, e.target.value)}
-          InputProps={{ style: { fontWeight: "bold" } }}
+          placeholder = {`Enter ${fixHeader}`}
+          value = {element.placeholder}
+          color= "secondary"
+          helperText= " "
+          onChange= {(e) => content(element.id, e.target.value)}
+          InputProps= {{ style: { fontWeight: "bold" } }}
         />
       )}
     </Card>

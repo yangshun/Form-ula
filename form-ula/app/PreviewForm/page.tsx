@@ -14,7 +14,7 @@ type FormElement = TextForm | ParagraphForm | CheckboxForm | SelectForm;
 const PreviewFormPage = () => { 
   const router = useRouter(); 
   const [formElements, setFormElements] = useState<FormElement[]>([]);
-  const {register, handleSubmit, formState: { errors }} = useForm<Record<string, any>>();
+  const {register, control, handleSubmit, formState: { errors }} = useForm<Record<string, any>>();
   const onSubmit = (data: Record<string, any>) => {
     console.log("SUBMIT DATA:", data); 
     sessionStorage.setItem("submittedData", JSON.stringify(data));
@@ -56,7 +56,7 @@ const PreviewFormPage = () => {
             </Button>
             <form onSubmit={handleSubmit(onSubmit)}>
               <RightSidebar formElements={formElements} removIt={() => {}} isPreview={true} header ={() => {}} content={content} isRequired={isRequired} register={register}
-              errors={errors} updateOptions={() => {}}/>
+              errors={errors} updateOptions={() => {}} control={control}/>
             </form>
           </div>
         </div>

@@ -26,10 +26,10 @@ export const NavBar = () => {
           </div>
           {/* Save and Preview Button */}
           <div className="flex items-center gap-4 sm:w-auto sm:text-3xl">
-            <Button variant="outlined" startIcon={<SendIcon/>} sx={{ color: 'black', borderColor: 'black' , fontSize: { xs: 10, lg: 16  } }} onClick={onSave}>
+            <Button variant="outlined" startIcon={<SendIcon/>} sx={{ color: 'black', borderColor: 'black', textTransform: "none", fontSize: { xs: 10, lg: 16  } }} onClick={onSave}>
               <h1>Save</h1>
             </Button>
-            <Button variant="outlined" sx={{ color: 'black', borderColor: 'black', fontSize: { xs: 10, lg: 16  }}} onClick={() => router.push(isPreview? '/' :'/PreviewForm')}>
+            <Button variant="outlined" sx={{ color: 'black', borderColor: 'black', textTransform: "none", fontSize: { xs: 10, lg: 16  }}} onClick={() => router.push(isPreview? '/' :'/PreviewForm')}>
               <h1>{isPreview ? 'Back to Edit' : 'Preview Form'}</h1>
             </Button>
           </div>

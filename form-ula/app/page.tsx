@@ -13,7 +13,7 @@ type FormElement = TextForm | ParagraphForm | CheckboxForm | SelectForm;
 const Home = () => {
   const [visit, hasvisted] = useState(false);
   const [formElements, setFormElements] = useState<FormElement[]>([]);
-  const {register, handleSubmit, formState: { errors }} = useForm<Record<string, any>>();
+  const {register, control, handleSubmit, formState: { errors }} = useForm<Record<string, any>>();
   const deletion = (id: string) => {
     setFormElements(formElements.filter((element) => element.id !== id));
   };
@@ -106,18 +106,17 @@ const Home = () => {
   };
 
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className = "flex min-h-screen flex-col">
       {/* Header NavBar */}
       <NavBar />
       {/* Body */}
       <div
-        className="grid grid-cols-1 xl:grid-cols-[30%_70%]">
+        className = "grid grid-cols-1 xl:grid-cols-[30%_70%]">
         {/* Left Sidebar */}
         <LeftSidebar addText={addText} addParagraph={addParagraph} addCheckBox={addCheckBox} addSelect={addSelect}/>
         {/* Right Sidebar */}
         <RightSidebar formElements={formElements} removIt={deletion} isPreview={false} header={header} content={content}
-                isRequired={isRequired} register={register} updateOptions={updateOptions}
-              errors={errors}/>
+                isRequired={isRequired} register={register} updateOptions={updateOptions} errors={errors} control ={control}/>
       </div>
     </main>
   );

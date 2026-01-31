@@ -19,12 +19,14 @@ type Props = {
   header: (id: string, value: string) => void;
   content: (id: string, value: string) => void;
   isRequired: (id: string, value: boolean) => void;
+  updateOptions: (id: string, options: string[]) => void;
   register: any;
   errors: any;
-  updateOptions: (id: string, options: string[]) => void;
+  control: any;
 };
 
-export const RightSidebar = ({ formElements ,removIt, isPreview, header, content, isRequired, register, errors, updateOptions}: Props) => {
+export const RightSidebar = ({ formElements ,removIt, isPreview, header, content, isRequired, 
+          register, errors, updateOptions, control}: Props) => {
   const [title, settitle] = useState('');
   const [description, setDescription] = useState('');
   
@@ -90,7 +92,8 @@ export const RightSidebar = ({ formElements ,removIt, isPreview, header, content
                     case "checkbox":
                       return <CheckBoxInput key={element.id} element={element} removIt={removIt} header={header} content={content} isPreview={isPreview} isRequired={isRequired}/>;
                     case "select":
-                      return <Select key={element.id} element={element} removIt={removIt} header={header} content={content} isPreview={isPreview} isRequired={isRequired} updateOptions={updateOptions}/>;
+                      return <Select key={element.id} element={element} removIt={removIt} header={header} content={content} isPreview={isPreview} isRequired={isRequired} 
+                          updateOptions={updateOptions} control={control} errors={errors}/>;
                     default:
                       return null;
                     }
@@ -98,8 +101,8 @@ export const RightSidebar = ({ formElements ,removIt, isPreview, header, content
                 )}       
 
                 {isPreview &&( 
-                <Button variant="contained" className="mt-12" startIcon={<SendIcon/>}  color="secondary" fullWidth type="submit"
-                  sx={{ color: 'white', height: 50}}>
+                <Button variant = "contained" className = "mt-12" startIcon={<SendIcon/>}  color = "secondary" fullWidth type="submit"
+                  sx = {{ color: 'white', height: 50}}> 
                   <h1>Submit</h1>
                 </Button> 
                 )}          

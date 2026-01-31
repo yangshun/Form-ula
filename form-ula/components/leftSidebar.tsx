@@ -18,19 +18,19 @@ export const LeftSidebar = ({addText, addParagraph, addCheckBox, addSelect}: Lef
           {/* Card Buttons */}
           <div className="grid grid-cols-2 gap-3">
             <Button variant="outlined" className="p-4" startIcon={<TextIcon/>} onClick={addText} 
-              sx={{ color: 'black', borderColor: 'black', height: 60 , width: "100%",}}>
+              sx={{ color: 'black', borderColor: 'black', height: 60 , width: "100%", textTransform: "none"}}>
               <h1>Text</h1>
             </Button>
             <Button variant="outlined" className="p-4" startIcon={<ParagraphIcon/>} onClick={addParagraph} 
-              sx={{ color: 'black', borderColor: 'black', height: 60 , width: "100%"}}>
+              sx={{ color: 'black', borderColor: 'black', height: 60 , width: "100%", textTransform: "none"}}>
               <h1>Paragraph</h1>
             </Button>
             <Button variant="outlined"className="p-4" startIcon={<CheckBoxIcon/>} onClick={addCheckBox} 
-              sx={{ color: 'black', borderColor: 'black', height: 60 , width: "100%"}}>
+              sx={{ color: 'black', borderColor: 'black', height: 60 , width: "100%", textTransform: "none"}}>
               <h1>Checkbox</h1>
             </Button>
             <Button variant="outlined" className="p-4" startIcon={<SelectIcon/>} onClick={addSelect} 
-              sx={{ color: 'black', borderColor: 'black', height: 60 , width: "100%"}}>
+              sx={{ color: 'black', borderColor: 'black', height: 60 , width: "100%", textTransform: "none"}}>
               <h1>Select</h1>
             </Button>
           </div>
