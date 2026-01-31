@@ -40,7 +40,7 @@ const Home = () => {
     }))};
   const updateOptions = (id: string, newOptions: string[]) => {
     setFormElements(formElements.map((element) => {
-      if (element.id === id && element.type === "select" || element.type === "checkbox") {
+      if (element.id === id && (element.type === "select" || element.type === "checkbox")) {
         return { ...element, options: newOptions };
       }
       return element;
