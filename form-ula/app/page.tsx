@@ -13,7 +13,7 @@ type FormElement = TextForm | ParagraphForm | CheckboxForm | SelectForm;
 const Home = () => {
   const [visit, hasvisted] = useState(false);
   const [formElements, setFormElements] = useState<FormElement[]>([]);
-  const {register, control, handleSubmit, formState: { errors }} = useForm<Record<string, any>>();
+  const {register, control, formState: { errors }} = useForm<Record<string, any>>();
   const deletion = (id: string) => {
     setFormElements(formElements.filter((element) => element.id !== id));
   };

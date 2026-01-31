@@ -1,14 +1,11 @@
 "use client";
 
 import Card from "@mui/material/Card";
-import { Button, FormControl, FormControlLabel, FormGroup, FormHelperText, Input, InputLabel, TextField } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
-import { Select as SelectDrop } from '@mui/material';
+import { Button, FormControl, FormControlLabel, FormGroup, FormHelperText, TextField } from '@mui/material';
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { CheckboxForm } from "@/types/user";
-import { useState } from "react";
 import { Controller } from "react-hook-form";
 
 type Props = {
