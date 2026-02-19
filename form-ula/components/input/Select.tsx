@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { SelectForm } from "@/types/user";
 import { Controller } from "react-hook-form";
+import type { Control, FieldErrors } from 'react-hook-form';
 
 type Props = {
   element: SelectForm;
@@ -17,8 +18,8 @@ type Props = {
   isRequired: (id: string, value: boolean) => void;
   isPreview: boolean;
   updateOptions: (id: string, options: string[]) => void;
-  control: any;
-  errors: any;
+  control: Control<Record<string, any>>;
+  errors: FieldErrors<Record<string, any>>;
 };
 
 export const Select = ({ element, removIt, header, isPreview, isRequired, updateOptions, control, errors}: Props) => {
@@ -45,7 +46,7 @@ export const Select = ({ element, removIt, header, isPreview, isRequired, update
             <TextField
               fullWidth
               placeholder = "New Select Field"
-              value = {element.header} 
+              value = {element.header}
               onChange = {(e) => header(element.id, e.target.value)}
               variant = "standard"
               InputProps = {{
@@ -55,48 +56,58 @@ export const Select = ({ element, removIt, header, isPreview, isRequired, update
               }}
             />
           )}
-        {!isPreview &&( 
+        {!isPreview &&(
           <FormGroup>
-            <FormControlLabel control = {<Checkbox disabled = {isPreview} onChange = {(e) => isRequired(element.id, e.target.checked)} 
+            <FormControlLabel control = {<Checkbox disabled = {isPreview} onChange = {(e) => isRequired(element.id, e.target.checked)}
             checked = {element.required || false} />} label = "required" />
           </FormGroup>
         )}
-        {!isPreview &&( 
+        {!isPreview &&(
           <IconButton aria-label = "delete" onClick={() => removIt(element.id)}>
             <DeleteIcon />
-          </IconButton>          
+          </IconButton>
         )}
       </div>
 
-      <FormControl fullWidth error = {!!errors?.[element.id]}>
-        <Controller
-          name = {element.id}
-          control = {control}
-          rules = {{ required: element.required ? "This field is required" : false }}
-          defaultValue = "" 
-          render = {({ field }) => (
-            <SelectDrop labelId="simpleSelectLabel" id="simpleSelect" displayEmpty value={field.value ?? ""} onChange={field.onChange}>
-              <MenuItem value="">
-                <em>Select an option</em>
-              </MenuItem>
-              {options.map((opt, index) => (
-                <MenuItem key = {index} value = {opt}>
-                  {opt || `Option ${index + 1}`}
+      {/* Dropdown — only rendered in preview mode to avoid a non-functional widget in the builder */}
+      {isPreview && (
+        <FormControl fullWidth error = {!!errors?.[element.id]}>
+          <Controller
+            name = {element.id}
+            control = {control}
+            rules = {{ required: element.required ? "This field is required" : false }}
+            defaultValue = ""
+            render = {({ field }) => (
+              <SelectDrop
+                labelId="simpleSelectLabel"
+                id="simpleSelect"
+                displayEmpty
+                value={field.value ?? ""}
+                onChange={field.onChange}
+                inputProps={{ "aria-required": element.required }}
+              >
+                <MenuItem value="">
+                  <em>Select an option</em>
                 </MenuItem>
-              ))}
-            </SelectDrop>
-          )}
-        />
+                {options.map((opt, index) => (
+                  <MenuItem key={`${element.id}-${index}`} value={opt}>
+                    {opt || `Option ${index + 1}`}
+                  </MenuItem>
+                ))}
+              </SelectDrop>
+            )}
+          />
           <FormHelperText>
-            {errors?.[element.id]?.message ?? " "}
+            {errors?.[element.id]?.message as string ?? " "}
           </FormHelperText>
-      </FormControl>
-      
+        </FormControl>
+      )}
+
       {!isPreview && (
         <>
         <h2 className="mt-4 mb-2 font-semibold">Options:</h2>
         {options.map((option, index) => (
-          <div key={index} className="flex items-center gap-2 mb-1">
+          <div key={`${element.id}-${index}`} className="flex items-center gap-2 mb-1">
             <TextField
               fullWidth
               placeholder= {`Option ${index + 1}`}

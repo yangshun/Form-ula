@@ -4,15 +4,21 @@
 import { NavBar } from "@/components/navbar";
 import { LeftSidebar } from "@/components/leftSidebar";
 import { RightSidebar } from "@/components/input/rightSidebar";
-import { TextForm, ParagraphForm, CheckboxForm, SelectForm } from "@/types/user";
+import { FormElement, TextForm, ParagraphForm, CheckboxForm, SelectForm } from "@/types/user";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-type FormElement = TextForm | ParagraphForm | CheckboxForm | SelectForm;
-
 const Home = () => {
-  const [visit, hasvisted] = useState(false);
-  const [formElements, setFormElements] = useState<FormElement[]>([]);
+  // Lazy initializer loads from localStorage on first render, eliminating the
+  // visit/hasvisted guard pattern and the extra render cycle it caused.
+  const [formElements, setFormElements] = useState<FormElement[]>(() => {
+    try {
+      const saved = localStorage.getItem('formElements');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const {register, control, formState: { errors }} = useForm<Record<string, any>>();
   const deletion = (id: string) => {
     setFormElements(formElements.filter((element) => element.id !== id));
@@ -46,19 +52,9 @@ const Home = () => {
       return element;
     }));
   };
-  useEffect(() => { 
-    const save = localStorage.getItem('formElements');
-    if (save) {
-      setFormElements(JSON.parse(save));
-    }
-    hasvisted(true);
-  }
-, []);
-
   useEffect(() => {
-    if (!visit) return;
     localStorage.setItem('formElements', JSON.stringify(formElements));
-  } , [formElements]);
+  }, [formElements]);
 
   const addText = () => {
     const newText: TextForm = {

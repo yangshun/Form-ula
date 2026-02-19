@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { CheckboxForm } from "@/types/user";
 import { Controller } from "react-hook-form";
+import type { Control, FieldErrors } from 'react-hook-form';
 
 type Props = {
   element: CheckboxForm;
@@ -15,8 +16,8 @@ type Props = {
   isRequired: (id: string, value: boolean) => void;
   isPreview: boolean;
   updateOptions: (id: string, options: string[]) => void;
-  control: any;
-  errors: any;
+  control: Control<Record<string, any>>;
+  errors: FieldErrors<Record<string, any>>;
 };
 
 export const CheckBoxInput = ({ element, removIt, header, isPreview, isRequired, updateOptions, control, errors}: Props) => {
@@ -43,7 +44,7 @@ export const CheckBoxInput = ({ element, removIt, header, isPreview, isRequired,
             <TextField
               fullWidth
               placeholder = "New Checkbox Field"
-              value = {element.header} 
+              value = {element.header}
               onChange = {(e) => header(element.id, e.target.value)}
               variant = "standard"
               InputProps = {{
@@ -53,16 +54,16 @@ export const CheckBoxInput = ({ element, removIt, header, isPreview, isRequired,
               }}
             />
           )}
-        {!isPreview &&( 
+        {!isPreview &&(
           <FormGroup>
-            <FormControlLabel control = {<Checkbox disabled = {isPreview} onChange = {(e) => isRequired(element.id, e.target.checked)} 
+            <FormControlLabel control = {<Checkbox disabled = {isPreview} onChange = {(e) => isRequired(element.id, e.target.checked)}
             checked = {element.required || false} />} label = "required" />
           </FormGroup>
         )}
-        {!isPreview &&( 
+        {!isPreview &&(
           <IconButton aria-label = "delete" onClick={() => removIt(element.id)}>
             <DeleteIcon />
-          </IconButton>          
+          </IconButton>
         )}
       </div>
 
@@ -70,7 +71,7 @@ export const CheckBoxInput = ({ element, removIt, header, isPreview, isRequired,
         <>
         <h2 className="mt-4 mb-2 font-semibold">Options:</h2>
         {options.map((option, index) => (
-          <div key={index} className="flex items-center gap-2 mb-1">
+          <div key={`${element.id}-${index}`} className="flex items-center gap-2 mb-1">
             <TextField
               fullWidth
               placeholder= {`Option ${index + 1}`}
@@ -95,15 +96,16 @@ export const CheckBoxInput = ({ element, removIt, header, isPreview, isRequired,
             name = {element.id}
             control = {control}
             rules = {{ required: element.required ? "This field is required" : false }}
-            defaultValue = {[]} 
+            defaultValue = {[]}
             render = {({ field }) => (
               <>
                 {options.map((opt, index) => (
                   <FormControlLabel
-                    key = {index}
+                    key = {`${element.id}-${index}`}
                     control = {
                       <Checkbox
                         checked = {field.value?.includes(opt) || false}
+                        inputProps={{ "aria-required": element.required }}
                         onChange = {(e) => {
                           const newValue = e.target.checked
                             ? [...(field.value || []), opt]
@@ -120,7 +122,7 @@ export const CheckBoxInput = ({ element, removIt, header, isPreview, isRequired,
           />
 
           <FormHelperText>
-            {errors?.[element.id]?.message ?? " "}
+            {errors?.[element.id]?.message as string ?? " "}
           </FormHelperText>
         </FormControl>
       )}

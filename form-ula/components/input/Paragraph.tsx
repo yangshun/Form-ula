@@ -6,6 +6,7 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ParagraphForm } from "@/types/user";
+import type { UseFormRegister, FieldErrors } from 'react-hook-form';
 
 type Props = {
   element: ParagraphForm;
@@ -14,8 +15,8 @@ type Props = {
   content: (id: string, value: string) => void;
   isRequired: (id: string, value: boolean) => void;
   isPreview: boolean;
-  register: any;
-  errors: any;
+  register: UseFormRegister<Record<string, any>>;
+  errors: FieldErrors<Record<string, any>>;
 };
 
 export const Paragraph = ({ element, removIt, header, content, isPreview, isRequired, register, errors}: Props) => {
@@ -32,7 +33,7 @@ export const Paragraph = ({ element, removIt, header, content, isPreview, isRequ
           <TextField
             fullWidth
             placeholder="New textarea field"
-            value={element.header} 
+            value={element.header}
             onChange={(e) => header(element.id, e.target.value)}
             variant="standard"
             InputProps={{
@@ -42,16 +43,16 @@ export const Paragraph = ({ element, removIt, header, content, isPreview, isRequ
             }}
           />
         )}
-        {!isPreview &&( 
+        {!isPreview &&(
           <FormGroup>
-            <FormControlLabel control={<Checkbox disabled={isPreview} onChange={(e) => isRequired(element.id, e.target.checked)} 
+            <FormControlLabel control={<Checkbox disabled={isPreview} onChange={(e) => isRequired(element.id, e.target.checked)}
             checked={element.required || false} />} label="required" />
           </FormGroup>
         )}
-        {!isPreview &&( 
+        {!isPreview &&(
           <IconButton aria-label="delete" onClick={() => removIt(element.id)}>
             <DeleteIcon />
-          </IconButton>          
+          </IconButton>
         )}
       </div>
       {isPreview ? (
@@ -62,8 +63,9 @@ export const Paragraph = ({ element, removIt, header, content, isPreview, isRequ
           placeholder={`Enter ${fixHeader}`}
           color="secondary"
           error={!!errors?.[element.id]}
-          helperText={errors?.[element.id]?.message ?? " "}
+          helperText={errors?.[element.id]?.message as string ?? " "}
           InputProps={{ style: { fontWeight: "bold" } }}
+          inputProps={{ "aria-required": element.required }}
           {...register(element.id, {
             required: element.required ? "This field is required" : false,
           })}
